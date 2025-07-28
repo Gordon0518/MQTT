@@ -26,14 +26,15 @@ class Subscriber:
     async def get_string(self, topic):
         client = mqtt.Client()
         try:
+
+            client.on_connect = self.on_connect
+            client.on_message = self.on_message
+            client.connect(self.broker, 1883, 60)
             while(True):
-                client.on_connect = self.on_connect
-                client.on_message = self.on_message
-                client.connect(self.broker, 1883, 60)
                 client.loop_start()
                 client.subscribe(topic)
 
-                await asyncio.sleep(60)
+                await asyncio.sleep(10)
 
         except Exception as e:
             print(e)
@@ -50,10 +51,11 @@ class Subscriber:
                 client.on_connect = self.on_connect
                 client.on_message = self.on_message_txt
                 client.connect(self.broker, 1883, 60)
-                client.loop_start()
-                client.subscribe(topic)
+                while(True):
+                    client.loop_start()
+                    client.subscribe(topic)
 
-                await asyncio.sleep(60)
+                    await asyncio.sleep(10)
 
         except Exception as e:
             print(e)
@@ -64,7 +66,7 @@ class Subscriber:
 
 
 async def main():
-    broker = "broker.hivemq.com"
+    broker = "broker.emqx.io"
     string_topic = "testmee/string"
     txt_topic = "testmee/txt"
     device = Subscriber(broker)

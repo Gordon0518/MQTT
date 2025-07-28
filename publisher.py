@@ -46,7 +46,7 @@ class Publisher:
             client.disconnect()
 
 if __name__ == '__main__':
-    device = Publisher("broker.hivemq.com")
+    device = Publisher("broker.emqx.io")
 
     txt_topic = "testmee/txt"
     string_topic = "testmee/string"
