@@ -26,13 +26,14 @@ class Subscriber:
     async def get_string(self, topic):
         client = mqtt.Client()
         try:
-            client.on_connect = self.on_connect
-            client.on_message = self.on_message
-            client.connect(self.broker, 1883, 60)
-            client.loop_start()
-            client.subscribe(topic)
+            while(True):
+                client.on_connect = self.on_connect
+                client.on_message = self.on_message
+                client.connect(self.broker, 1883, 60)
+                client.loop_start()
+                client.subscribe(topic)
 
-            await asyncio.sleep(60)
+                await asyncio.sleep(60)
 
         except Exception as e:
             print(e)
@@ -45,13 +46,14 @@ class Subscriber:
     async def get_txt(self, topic):
         client = mqtt.Client()
         try:
-            client.on_connect = self.on_connect
-            client.on_message = self.on_message_txt
-            client.connect(self.broker, 1883, 60)
-            client.loop_start()
-            client.subscribe(topic)
+            while(True):
+                client.on_connect = self.on_connect
+                client.on_message = self.on_message_txt
+                client.connect(self.broker, 1883, 60)
+                client.loop_start()
+                client.subscribe(topic)
 
-            await asyncio.sleep(60)
+                await asyncio.sleep(60)
 
         except Exception as e:
             print(e)
