@@ -14,7 +14,7 @@ class Subscriber:
             print(f"Failed to connect: {rc}")
 
     def on_message(self, client, userdata, message):
-        print(message.payload.decode("utf-8"))
+        print("Recieved Message: " + message.payload.decode("utf-8"))
 
     def on_message_txt(self, client, userdata, message):
         with open("Recieved.txt", "w") as f:
